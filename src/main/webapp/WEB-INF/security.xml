@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <security:http auto-config="true">
+        <security:intercept-url pattern="/welcome" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/new" access="hasRole('ROLE_USER')"/>
+        <security:intercept-url pattern="/all" access="hasRole('ROLE_USER')"/>
+        <security:intercept-url pattern="/add" access="hasRole('ROLE_USER')"/>
+        <security:form-login login-page="/login" default-target-url="/welcome" authentication-failure-url="/login?error"
+                             username-parameter="login" password-parameter="password"/>
+        <security:logout logout-success-url="/login?logout"/>
+    </security:http>
+
+    <security:authentication-manager alias="myManager">
+        <security:authentication-provider user-service-ref="userDetailServiceImpl"/>
+    </security:authentication-manager>
+
+
+</beans>

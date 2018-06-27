@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+        version="2.0">
+
+    <entity class="system.dao.entity.ContactLogEntity">
+        <table name="contact_log" schema="Contacts"/>
+        <attributes>
+            <id name="id">
+                <column name="id" precision="11"/>
+            </id>
+            <many-to-one name="contactByContactId" optional="true" target-entity="system.dao.entity.ContactEntity">
+                <join-column name="contact_id" referenced-column-name="id"/>
+            </many-to-one>
+        </attributes>
+    </entity>
+</entity-mappings>
